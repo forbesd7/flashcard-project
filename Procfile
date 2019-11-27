@@ -1,1 +1,1 @@
-web: bin/flashcard-project
+web: bin/react-go-heroku
