@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography' 
 import axios from 'axios'
 
 export default class Pinger extends Component {
@@ -24,7 +26,15 @@ export default class Pinger extends Component {
 
     render() {
         return (
-            <h1>Ping {this.state.pong}</h1>
+            <div>
+                <Typography variant='display1' align='left' gutterBottom>        {this.state.pong}      </Typography>                 
+                
+                <Button variant="contained" color="primary"> 
+                    Hello World
+                </Button>
+
+                
+            </div>
         )
     }
 }
