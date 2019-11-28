@@ -25,7 +25,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 240*time.Second)
 	err = client.Connect(ctx)
 	if err != nil {
 		log.Fatal(err)
