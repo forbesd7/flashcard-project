@@ -60,7 +60,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Inserted %v documents into episode collection!\n", len(episodeResult.InsertedIDs))
+	fmt.Printf("Insereted %v documents into episode collection!\n", len(episodeResult.InsertedIDs))
 
 	cursor, err := episodesCollection.Find(ctx, bson.M{})
 	if err != nil {
