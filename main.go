@@ -5,12 +5,17 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
+)
+
+var (
+	serverPort = ":" + os.Getenv("PORT")
 )
 
 func main() {
@@ -92,9 +97,12 @@ func main() {
 	fmt.Println(episodesFiltered)
 	fmt.Println("filtered eps")
 
-	fs := http.FileServer(http.Dir("/client/build"))
+	fs := http.FileServer(http.Dir("./client/build"))
 	http.Handle("/", fs)
 	log.Println("Listening...")
-	http.ListenAndServe(":8080", nil)
+	if serverPort == ":" {
+		serverPort = ":8080"
+	}
+	log.Fatal(http.ListenAndServe(serverPort, nil))
 
 }
