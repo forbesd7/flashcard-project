@@ -1,0 +1,17 @@
+.deckViewer {
+    display: flex;
+    margin-top:5%;
+}
+
+.deckName {
+    margin-right:5%;
+}
+
+.deleteButton {
+    opacity: 0.3;
+    transition: all 0.4s;
+}
+
+.deleteButton:hover {
+    opacity:1;
+}

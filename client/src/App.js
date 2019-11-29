@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './App.css';
-import Pinger from './Components/Pinger';
+import Decks from './Components/Decks';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <p>
           Deploy React + Go to Heroku using Docker
         </p>
-        <Pinger />
+        <Decks />
 
       </header>
     </div>
