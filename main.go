@@ -84,6 +84,9 @@ func main() {
 
 	fs := http.FileServer(http.Dir("./client/build"))
 	http.Handle("/", fs)
+	staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("./client/build/static")))
+	http.Handle("/static", staticHandler)
+	//router.PathPrefix("/static/").Handler(staticHandler)
 
 	http.HandleFunc("/api/add", addCard)
 	http.HandleFunc("/api/decks", getAllDecks)
