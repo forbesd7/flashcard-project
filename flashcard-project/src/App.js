@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>
-          Deploy React + Go to Heroku using Docker
+          "Flash card" Maker
         </p>
         <Decks />
 

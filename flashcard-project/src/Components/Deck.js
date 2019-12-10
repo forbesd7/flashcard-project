@@ -13,8 +13,16 @@ export default class Deck extends Component {
     }
 
     componentDidMount() {
-        Axios.get('/api/getCards')
+        Axios.post('/api/getCards', 
+        {
+            "deckName": this.props.deck
+        }) 
         .then(res => {
+            let cardData = res.data;
+            cardData = cardData.replace("{", "")
+            cardData = cardData.replace("}", "")
+            
+           console.log(cardData);
 
         })
     }

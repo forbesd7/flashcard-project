@@ -42,8 +42,6 @@ export default class Decks extends Component {
             let decks = res.data;
             decks = decks.replace("[", "")
             decks = decks.replace("]", "")
-            // decks = decks.replace("local", "")
-            // decks = decks.replace("admin", "")
             decks = decks.split(' ')
             decks.pop();
             decks.pop();
