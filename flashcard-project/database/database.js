@@ -1,5 +1,7 @@
 const mongo = require("mongodb").MongoClient;
-const url = process.env.MONGODB_URI || "mongodb://localhost:27017";
+const url =
+  process.env.MONGODB_URI ||
+  "mongodb://derekforbes:derekforbes7@ds353358.mlab.com:53358/heroku_5cv1td3b";
 
 const main = async func => {
   console.log(url);
@@ -21,13 +23,13 @@ const main = async func => {
 };
 
 async function listDatabases(client) {
-  const databasesList = await client
-    .db()
-    .admin()
-    .listDatabases();
+  // const databasesList = await client
+  //   .db()
+  //   .admin()
+  //   .listDatabases();
 
-  console.log("Databases:");
-  databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+  // console.log("Databases:");
+  // databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 
   const db = await client.db("heroku_5cv1td3b");
 
