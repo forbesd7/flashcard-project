@@ -16,29 +16,31 @@ export default class Decks extends Component {
     }
     
     componentDidMount() {
-      this.getDecks();
-      axios.post('/api/add', 
-      {
-          "name": "derek"
-      })
-          .then((response) => {
-              console.log(response.data.name)
-              this.setState(() => {
-                  return { pong: response.name }
-              })
-          })
-          .catch(function (error) {
-              console.log(error);
-          });
+      this.getDecks()
+    //   axios.post('/api/add', 
+    //   {
+    //       "name": "derek"
+    //   })
+    //       .then((response) => {
+    //           console.log(response.data.name)
+    //           this.setState(() => {
+    //               return { pong: response.name }
+    //           })
+    //       })
+    //       .catch(function (error) {
+    //           console.log(error);
+    //       });
 
     }
     updatePage = () => {
         this.getDecks();
     }
     getDecks = () => {
-
-        axios.get('api/decks')
+        console.log('getting decks..')
+        axios.get('/api/getDecks')
           .then(res => {
+              console.log('yo');
+              console.log(res)
             let decks = res.data;
             decks = decks.replace("[", "")
             decks = decks.replace("]", "")
@@ -49,6 +51,7 @@ export default class Decks extends Component {
             this.setState({decks: newDeckList})
             console.log(this.state)
           })
+          .catch(err => console.log(err))
 
     }
     deckViewer = (deck) => {

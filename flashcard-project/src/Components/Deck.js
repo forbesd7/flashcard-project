@@ -12,20 +12,20 @@ export default class Deck extends Component {
         }
     }
 
-    componentDidMount() {
-        Axios.post('/api/getCards', 
-        {
-            "deckName": this.props.deck
-        }) 
-        .then(res => {
-            let cardData = res.data;
-            cardData = cardData.replace("{", "")
-            cardData = cardData.replace("}", "")
+    // componentDidMount() {
+    //     Axios.post('/api/getCards', 
+    //     {
+    //         "deckName": this.props.deck
+    //     }) 
+    //     .then(res => {
+    //         let cardData = res.data;
+    //         cardData = cardData.replace("{", "")
+    //         cardData = cardData.replace("}", "")
             
-           console.log(cardData);
+    //        console.log(cardData);
 
-        })
-    }
+    //     })
+    // }
 
     makeNewCard = () => {
 
