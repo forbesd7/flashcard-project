@@ -1,16 +1,18 @@
 const mongo = require("mongodb").MongoClient;
 const url = process.env.MONGODB_URI || "mongodb://localhost:27017";
-const client = new mongo(url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-const main = async () => {
+
+const main = async func => {
   console.log(url);
+  const client = new mongo(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
   try {
     // Connect to the MongoDB cluster
     await client.connect();
-
-    await listDatabases(client);
+    if (func == "listDatabases") {
+      await listDatabases(client);
+    }
   } catch (e) {
     console.error(e);
   } finally {
@@ -27,15 +29,13 @@ async function listDatabases(client) {
   console.log("Databases:");
   databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 
-  const db = await client.db("flashcard");
+  const db = await client.db("heroku_5cv1td3b");
 
   const collection = await db.collection("deck1");
 
-  await collection.insertOne({ test2: "ASDASasdDASD" });
+  await collection.insertOne({ test2: "helloooo" });
 }
-
-main();
-
+main("listDatabases");
 module.exports = main;
 
 // mongo.connect(

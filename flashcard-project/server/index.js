@@ -26,8 +26,8 @@ app.get("/api/getDecks", (req, res) => {
 });
 
 app.get("/api/listDatabases", (req, res) => {
+  main("listDatabases");
   res.send("hello");
-  main();
 });
 
 const PORT = process.env.PORT || 9000;
