@@ -2,9 +2,19 @@ const express = require("express");
 const path = require("path");
 const axios = require("axios");
 const app = express();
-const main = require("../database/database");
+const bodyParser = require("body-parser");
+
+const databaseConnection = require("../database/database");
 
 app.use(express.static(path.join(__dirname, "../build/")));
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+
+app.use(bodyParser.json());
 
 // app.get("/*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "build", "index.html"));
@@ -25,8 +35,9 @@ app.get("/api/getDecks", (req, res) => {
     .catch(err => console.log(err));
 });
 
-app.get("/api/listDatabases", (req, res) => {
-  main("listDatabases");
+app.post("/api/addCard", (req, res) => {
+  console.log(req.body);
+  databaseConnection("addCard", req.body);
   res.send("hello");
 });
 

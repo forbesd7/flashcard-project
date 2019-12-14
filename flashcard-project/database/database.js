@@ -1,9 +1,7 @@
 const mongo = require("mongodb").MongoClient;
-const url =
-  process.env.MONGODB_URI ||
-  "mongodb://derekforbes:derekforbes7@ds353358.mlab.com:53358/heroku_5cv1td3b";
-
-const main = async func => {
+const url = process.env.MONGODB_URI || "mongodb://localhost:27017";
+//mongodb (online one ) is mongodb://derekforbes:derekforbes7@ds353358.mlab.com:53358/heroku_5cv1td3b
+const databaseConnection = async (func, data) => {
   console.log(url);
   const client = new mongo(url, {
     useNewUrlParser: true,
@@ -12,8 +10,10 @@ const main = async func => {
   try {
     // Connect to the MongoDB cluster
     await client.connect();
-    if (func == "listDatabases") {
-      await listDatabases(client);
+    if (func == "addCard") {
+      await addCard(client, data);
+    } else {
+      console.log("no function given");
     }
   } catch (e) {
     console.error(e);
@@ -22,7 +22,7 @@ const main = async func => {
   }
 };
 
-async function listDatabases(client) {
+async function addCard(client, data) {
   // const databasesList = await client
   //   .db()
   //   .admin()
@@ -35,10 +35,10 @@ async function listDatabases(client) {
 
   const collection = await db.collection("deck1");
 
-  await collection.insertOne({ test2: "helloooo" });
+  await collection.insertOne(data);
 }
-main("listDatabases");
-module.exports = main;
+databaseConnection();
+module.exports = databaseConnection;
 
 // mongo.connect(
 //   url,

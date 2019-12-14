@@ -17,9 +17,13 @@ export default class Decks extends Component {
 
   componentDidMount() {
     this.getDecks();
-    axios.get("/api/listDatabases").then(res => {
-      console.log(res);
-    });
+    axios
+      .post("/api/addCard", {
+        newBois: "fuck yeah it works"
+      })
+      .then(res => {
+        console.log(res);
+      });
 
     //   axios.post('/api/add',
     //   {
