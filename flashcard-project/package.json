@@ -13,6 +13,7 @@
     "react-scripts": "3.2.0"
   },
   "scripts": {
+    "react-start": "react-scripts start",
     "start": "node server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
