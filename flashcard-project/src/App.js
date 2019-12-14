@@ -1,17 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import './App.css';
-import Decks from './Components/Decks';
+import "./App.css";
+import Decks from "./Components/Decks";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          "Flash card" Maker
-        </p>
+        <p>"Flash card" Maker FACK</p>
         <Decks />
-
       </header>
     </div>
   );

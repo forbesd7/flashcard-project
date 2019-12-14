@@ -1,11 +1,11 @@
 const mongo = require("mongodb").MongoClient;
-
+const url = process.env.MONGODB_URI || "mongodb://localhost:27017";
+const client = new mongo(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 const main = async () => {
-  const url = process.env.MONGODB_URI || "mongodb://localhost:27017";
-  const client = new mongo(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
+  console.log(url);
   try {
     // Connect to the MongoDB cluster
     await client.connect();
@@ -31,7 +31,7 @@ async function listDatabases(client) {
 
   const collection = await db.collection("deck1");
 
-  await collection.insertOne({ test2: "FAAACK" });
+  await collection.insertOne({ test2: "ASDASasdDASD" });
 }
 
 main();
