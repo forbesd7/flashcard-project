@@ -59,5 +59,10 @@ app.get("/api/getDeck", async (req, res) => {
   res.send(deckArr);
 });
 
+app.post("/api/addCard", (req, res) => {
+  console.log(req.body);
+  databaseConnection("addCard", req.body);
+});
+
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

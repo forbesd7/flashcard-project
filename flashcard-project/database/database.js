@@ -22,15 +22,18 @@ const databaseConnection = async (func, data) => {
   try {
     // Connect to the MongoDB cluster
     await client.connect();
-    if (func == "addDeck") {
+    if (func === "addDeck") {
       await addDeck(client, data);
-    } else if (func == "getDecks") {
+    } else if (func === "getDecks") {
       const collections = await getDecks(client);
       return collections;
-    } else if (func == "getDeck") {
+    } else if (func === "getDeck") {
       const deckArr = await getDeck(client, data);
       console.log(deckArr);
       return deckArr;
+    } else if (func === "addCard") {
+      //call function to add the card
+      console.log(data);
     } else {
       console.log("no function given");
     }
