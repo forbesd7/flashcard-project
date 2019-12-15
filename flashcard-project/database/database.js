@@ -1,6 +1,19 @@
 const mongo = require("mongodb").MongoClient;
 const url = process.env.MONGODB_URI || "mongodb://localhost:27017";
 //mongodb (online one ) is mongodb://derekforbes:derekforbes7@ds353358.mlab.com:53358/heroku_5cv1td3b
+
+const toArray = iterator => {
+  return new Promise((resolve, reject) => {
+    iterator.toArray((err, res) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    });
+  });
+};
+
 const databaseConnection = async (func, data) => {
   console.log(url);
   const client = new mongo(url, {
@@ -12,6 +25,9 @@ const databaseConnection = async (func, data) => {
     await client.connect();
     if (func == "addCard") {
       await addCard(client, data);
+    } else if (func == "getDecks") {
+      const collections = await getDecks(client);
+      return collections;
     } else {
       console.log("no function given");
     }
@@ -22,20 +38,17 @@ const databaseConnection = async (func, data) => {
   }
 };
 
-async function addCard(client, data) {
-  // const databasesList = await client
-  //   .db()
-  //   .admin()
-  //   .listDatabases();
-
-  // console.log("Databases:");
-  // databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-
+const getDecks = async client => {
   const db = await client.db("heroku_5cv1td3b");
+  const collectionArray = await toArray(db.listCollections());
+  return collectionArray;
+};
+async function addCard(client, data) {
+  const db = await client.db("heroku_5cv1td3b");
+  await db.createCollection(data);
+  //const collection = await db.collection("deck1");
 
-  const collection = await db.collection("deck1");
-
-  await collection.insertOne(data);
+  //await collection.insertOne(data);
 }
 databaseConnection();
 module.exports = databaseConnection;
