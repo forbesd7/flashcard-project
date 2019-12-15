@@ -15,7 +15,6 @@ const toArray = iterator => {
 };
 
 const databaseConnection = async (func, data) => {
-  console.log(url);
   const client = new mongo(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -23,11 +22,15 @@ const databaseConnection = async (func, data) => {
   try {
     // Connect to the MongoDB cluster
     await client.connect();
-    if (func == "addCard") {
-      await addCard(client, data);
+    if (func == "addDeck") {
+      await addDeck(client, data);
     } else if (func == "getDecks") {
       const collections = await getDecks(client);
       return collections;
+    } else if (func == "getDeck") {
+      const deckArr = await getDeck(client, data);
+      console.log(deckArr);
+      return deckArr;
     } else {
       console.log("no function given");
     }
@@ -43,13 +46,18 @@ const getDecks = async client => {
   const collectionArray = await toArray(db.listCollections());
   return collectionArray;
 };
-async function addCard(client, data) {
+
+const addDeck = async (client, data) => {
   const db = await client.db("heroku_5cv1td3b");
   await db.createCollection(data);
-  //const collection = await db.collection("deck1");
+};
 
-  //await collection.insertOne(data);
-}
+const getDeck = async (client, data) => {
+  const db = await client.db("heroku_5cv1td3b");
+  const deck = await db.collection(data);
+  const deckArr = await toArray(deck.find());
+  return deckArr;
+};
 databaseConnection();
 module.exports = databaseConnection;
 

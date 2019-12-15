@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import { Button, Input } from "@material-ui/core/";
 import axios from "axios";
 import Deck from "./Deck";
+import CardViewer from "./SingleDeckViewer";
+
 import "../stylesheets/Decks.css";
 
 export default class Decks extends Component {
@@ -9,7 +11,9 @@ export default class Decks extends Component {
     super();
     this.state = {
       userInput: "",
-      currentDecks: []
+      currentDecks: [],
+      currentView: "allDeckViewer",
+      deck: ""
     };
   }
 
@@ -29,7 +33,7 @@ export default class Decks extends Component {
 
   makeNewDeck = () => {
     axios
-      .post("/api/addCard", {
+      .post("/api/addDeck", {
         deckName: this.state.userInput
       })
       .then(res => {
@@ -44,20 +48,42 @@ export default class Decks extends Component {
     this.setState({ userInput: event.target.value });
   };
 
+  showDeck = deckInfo => {
+    this.setState({
+      deck: <CardViewer goHome={this.goHome} deckInfo={deckInfo} />
+    });
+    this.setState({ currentView: "singleDeckViewer" });
+  };
+
+  goHome = () => {
+    this.setState({ currentView: "allDeckViewer" });
+  };
+
   render() {
-    return (
-      <Fragment>
-        <Input
-          value={this.state.userInput}
-          onChange={e => this.updateUserDeckName(e)}
-        ></Input>
-        <Button onClick={this.makeNewDeck} variant="contained" color="primary">
-          Make new Deck
-        </Button>
-        {this.state.currentDecks.map(deck => {
-          return <Deck deck={deck} />;
-        })}
-      </Fragment>
-    );
+    //select which view will be shown
+    let view;
+    if (this.state.currentView === "allDeckViewer") {
+      view = (
+        <Fragment>
+          <Input
+            value={this.state.userInput}
+            onChange={e => this.updateUserDeckName(e)}
+          ></Input>
+          <Button
+            onClick={this.makeNewDeck}
+            variant="contained"
+            color="primary"
+          >
+            Make new Deck
+          </Button>
+          {this.state.currentDecks.map((deck, index) => {
+            return <Deck key={index} showDeck={this.showDeck} deck={deck} />;
+          })}
+        </Fragment>
+      );
+    } else if (this.state.currentView === "singleDeckViewer") {
+      view = this.state.deck;
+    }
+    return <Fragment> {view}</Fragment>;
   }
 }

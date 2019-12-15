@@ -43,9 +43,20 @@ app.get("/api/getDecks", async (req, res) => {
   res.send(deckNames);
 });
 
-app.post("/api/addCard", (req, res) => {
+app.post("/api/addDeck", (req, res) => {
   console.log(req.body);
-  databaseConnection("addCard", req.body.deckName);
+  databaseConnection("addDeck", req.body.deckName);
+});
+
+app.get("/api/getDeck", async (req, res) => {
+  const deck = await databaseConnection("getDeck", req.query.deckName);
+  deckArr = [];
+  for (let card in deck) {
+    console.log(card);
+    deckArr.push({ front: deck[card].front, back: deck[card].back });
+  }
+  console.log(deckArr);
+  res.send(deckArr);
 });
 
 const PORT = process.env.PORT || 9000;
