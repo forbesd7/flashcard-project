@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Button, Input } from "@material-ui/core/";
 import axios from "axios";
 import Deck from "./Deck";
-import CardViewer from "./SingleDeckViewer";
+import SingleDeckViewer from "./SingleDeckViewer";
 
 import "../stylesheets/Decks.css";
 
@@ -23,6 +23,7 @@ export default class Decks extends Component {
 
   getDecks = () => {
     axios.get("/api/getDecks").then(res => {
+      console.log("got decks");
       this.setState(prevState => ({ currentDecks: res.data }));
     });
   };
@@ -48,9 +49,15 @@ export default class Decks extends Component {
     this.setState({ userInput: event.target.value });
   };
 
-  showDeck = deckInfo => {
+  showDeck = (cards, deckName) => {
     this.setState({
-      deck: <CardViewer goHome={this.goHome} deckInfo={deckInfo} />
+      deck: (
+        <SingleDeckViewer
+          deckName={deckName}
+          goHome={this.goHome}
+          cards={cards}
+        />
+      )
     });
     this.setState({ currentView: "singleDeckViewer" });
   };

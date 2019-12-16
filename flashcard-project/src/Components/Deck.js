@@ -16,12 +16,12 @@ function Deck(props) {
       updateCards(res.data);
     });
   };
-  const { showDeck } = props;
+  const { showDeck, deck } = props;
   useEffect(() => {
     if (cards !== "") {
-      showDeck(cards);
+      showDeck(cards, deck);
     }
-  }, [cards, showDeck]);
+  }, [cards, showDeck, deck]);
 
   return (
     <Fragment>

@@ -9,13 +9,12 @@ function SingleDeckViewer(props) {
   const addCard = () => {
     changeCurrentView("addCard");
   };
-  console.log(props.deckInfo);
 
   if (currentView === "viewCards") {
     changeViewComponents(
       <Fragment>
         <Typography>Cards</Typography>
-        {props.deckInfo.map((card, index) => {
+        {props.cards.map((card, index) => {
           return <Card key={index} cardInfo={card} />;
         })}
         <Button onClick={addCard}>Add new card</Button>
@@ -23,7 +22,7 @@ function SingleDeckViewer(props) {
     );
     changeCurrentView("");
   } else if (currentView === "addCard") {
-    changeViewComponents(<AddCard />);
+    changeViewComponents(<AddCard deckName={props.deckName} />);
     changeCurrentView("");
   }
   return (

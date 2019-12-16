@@ -49,6 +49,7 @@ app.post("/api/addDeck", (req, res) => {
 });
 
 app.get("/api/getDeck", async (req, res) => {
+  console.log("?");
   const deck = await databaseConnection("getDeck", req.query.deckName);
   deckArr = [];
   for (let card in deck) {

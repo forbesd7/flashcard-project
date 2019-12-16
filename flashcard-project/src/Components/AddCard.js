@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { TextField, Button, Container, Box } from "@material-ui/core";
 import axios from "axios";
 
-const AddCard = () => {
+const AddCard = props => {
   const [cardFront, changeCardFront] = useState("");
   const [cardBack, changeCardBack] = useState("");
 
@@ -19,7 +19,8 @@ const AddCard = () => {
   const addCardToDeck = (cardFront, cardBack) => {
     axios.post("/api/addCard", {
       front: cardFront,
-      back: cardBack
+      back: cardBack,
+      deckName: props.deckName
     });
   };
 

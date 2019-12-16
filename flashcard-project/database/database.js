@@ -22,20 +22,25 @@ const databaseConnection = async (func, data) => {
   try {
     // Connect to the MongoDB cluster
     await client.connect();
-    if (func === "addDeck") {
-      await addDeck(client, data);
-    } else if (func === "getDecks") {
-      const collections = await getDecks(client);
-      return collections;
-    } else if (func === "getDeck") {
-      const deckArr = await getDeck(client, data);
-      console.log(deckArr);
-      return deckArr;
-    } else if (func === "addCard") {
-      //call function to add the card
-      console.log(data);
-    } else {
-      console.log("no function given");
+
+    switch (func) {
+      case "addDeck": {
+        await addDeck(client, data);
+        break;
+      }
+      case "getDecks": {
+        const collections = await getDecks(client);
+        return collections;
+      }
+      case "getDeck": {
+        const deckArr = await getDeck(client, data);
+        console.log(deckArr);
+        return deckArr;
+      }
+      case "addCard": {
+        await addCard(client, data);
+        console.log(data);
+      }
     }
   } catch (e) {
     console.error(e);
@@ -60,6 +65,13 @@ const getDeck = async (client, data) => {
   const deck = await db.collection(data);
   const deckArr = await toArray(deck.find());
   return deckArr;
+};
+
+const addCard = async (client, data) => {
+  const db = await client.db("heroku_5cv1td3b");
+  const deck = await db.collection(data.deckName);
+  await deck.insertOne({ front: data.front, back: data.back });
+  console.log("card added!");
 };
 databaseConnection();
 module.exports = databaseConnection;
