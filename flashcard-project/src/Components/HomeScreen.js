@@ -17,9 +17,9 @@ const HomeScreen = props => {
       <Grid item>
         <Typography>Make Your Own Deck</Typography>
       </Grid>
-      <Grid item>
+      {/* <Grid item>
         <Typography>About</Typography>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };
