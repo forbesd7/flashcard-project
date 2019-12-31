@@ -1,21 +1,33 @@
 import React from "react";
-import { Typography, Grid, withStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { Button, Grid, withStyles } from "@material-ui/core";
 
 const styles = theme => ({
   container: {
     width: "100vw",
-    height: "100vw",
-    background: "goldenrod"
+    height: "100vh",
+    background: "black"
   }
 });
 const HomeScreen = props => {
   return (
-    <Grid className={props.classes.container} alignItems="center" container>
+    <Grid
+      className={props.classes.container}
+      justify="center"
+      alignItems="center"
+      container
+    >
       <Grid item>
-        <Typography>Study</Typography>
+        <Link to="/decks">
+          <Button variant="contained" color="primary">
+            Study
+          </Button>
+        </Link>
       </Grid>
       <Grid item>
-        <Typography>Make Your Own Deck</Typography>
+        <Button variant="contained" color="primary">
+          Make Your Own Deck
+        </Button>
       </Grid>
       {/* <Grid item>
         <Typography>About</Typography>

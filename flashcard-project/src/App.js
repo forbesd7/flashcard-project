@@ -6,12 +6,14 @@ import HomeScreen from "./Components/HomeScreen";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/homescreen" component={HomeScreen}></Route>
-        <Route path="/" component={Decks}></Route>
-      </Switch>
-    </BrowserRouter>
+    <div className="App">
+      <BrowserRouter>
+        <Switch>
+          <Route path="/decks" component={Decks}></Route>
+          <Route path="/" component={HomeScreen}></Route>
+        </Switch>
+      </BrowserRouter>
+    </div>
   );
 }
 

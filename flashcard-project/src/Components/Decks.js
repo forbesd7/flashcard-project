@@ -1,10 +1,18 @@
 import React, { Component, Fragment } from "react";
-import { Button, Input } from "@material-ui/core/";
+import { Button, Input, Grid } from "@material-ui/core/";
 import axios from "axios";
 import Deck from "./Deck";
 import SingleDeckViewer from "./SingleDeckViewer";
 
 import "../stylesheets/Decks.css";
+
+const styles = theme => ({
+  container: {
+    width: "100vw",
+    height: "100vh",
+    background: "black"
+  }
+});
 
 export default class Decks extends Component {
   constructor() {
@@ -71,22 +79,11 @@ export default class Decks extends Component {
     let view;
     if (this.state.currentView === "allDeckViewer") {
       view = (
-        <Fragment>
-          <Input
-            value={this.state.userInput}
-            onChange={e => this.updateUserDeckName(e)}
-          ></Input>
-          <Button
-            onClick={this.makeNewDeck}
-            variant="contained"
-            color="primary"
-          >
-            Make new Deck
-          </Button>
+        <Grid container justify="center" alignItems="center">
           {this.state.currentDecks.map((deck, index) => {
             return <Deck key={index} showDeck={this.showDeck} deck={deck} />;
           })}
-        </Fragment>
+        </Grid>
       );
     } else if (this.state.currentView === "singleDeckViewer") {
       view = this.state.deck;
@@ -94,3 +91,16 @@ export default class Decks extends Component {
     return <Fragment> {view}</Fragment>;
   }
 }
+
+/*
+value={this.state.userInput}
+onChange={e => this.updateUserDeckName(e)}
+></Input>
+<Button
+onClick={this.makeNewDeck}
+variant="contained"
+color="primary"
+>
+Make new Deck
+</Button>
+*/

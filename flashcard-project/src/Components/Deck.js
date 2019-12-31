@@ -1,6 +1,6 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Typography, withStyles } from "@material-ui/core/";
+import { Typography, withStyles, Grid } from "@material-ui/core/";
 
 const styles = theme => ({
   Deck: {
@@ -24,14 +24,14 @@ function Deck(props) {
   }, [cards, showDeck, deck]);
 
   return (
-    <Fragment>
+    <Grid item xs={12}>
       <Typography
         className={props.classes.Deck}
         onClick={() => getDeckInfo(props.deck)}
       >
         {props.deck}
       </Typography>
-    </Fragment>
+    </Grid>
   );
 }
 
